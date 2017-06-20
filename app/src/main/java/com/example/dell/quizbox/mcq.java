@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -76,6 +78,16 @@ public class mcq extends AppCompatActivity {
         {
             imv.setImageResource(R.drawable.sad);
         }*/
+
+        TextView ques=(TextView)findViewById(R.id.question);
+        ques.setAlpha(0f);
+        RadioGroup rg=(RadioGroup)findViewById(R.id.radiogroup);
+        rg.setAlpha(0f);
+        RelativeLayout rl=(RelativeLayout)findViewById(R.id.skipButton);
+        rl.setAlpha(0f);
+        TextView sco=(TextView)findViewById(R.id.score);
+        sco.setAlpha(1f);
+        sco.setText("Score : "+Score);
         Log.i("Score",Score+"");
 
 
