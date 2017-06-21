@@ -99,13 +99,7 @@ public class SInglePlayerActivity extends AppCompatActivity {
                 downloadTask.execute(apis.get(position));
 
 
-               // Log.i("QuestionLog",questions[0]);
 
-               // i.putExtra("questions",questions);
-                /*i.putExtra("answers",answers);
-                for(int x=0;x<=9;x++) {
-                    i.putExtra("option"+x, options[x]);
-                }*/
 
                 Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
 

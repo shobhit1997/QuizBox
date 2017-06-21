@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "969837293740",
+    "firebase_url": "https://quizbox-1235b.firebaseio.com",
+    "project_id": "quizbox-1235b",
+    "storage_bucket": "quizbox-1235b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969837293740:android:f1adb4a80880be77",
+        "android_client_info": {
+          "package_name": "com.example.dell.quizbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969837293740-5rbobvmao4k1o97ia21h6g7mvrub3o38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dell.quizbox",
+            "certificate_hash": "cb7818da76a7f13658fba971657b4996734304a1"
+          }
+        },
+        {
+          "client_id": "969837293740-tc2gdljpfpbln9o9r3b9f6c5v46no5lu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-xoczNSgiUn2M2ZJRGIwC3iCideHVx_A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969837293740-tc2gdljpfpbln9o9r3b9f6c5v46no5lu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

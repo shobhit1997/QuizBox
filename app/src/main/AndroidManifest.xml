@@ -54,6 +54,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.SInglePlayerActivity" />
         </activity>
+        <activity
+            android:name=".MCQ2"
+            android:label="@string/title_activity_mcq2"
+            android:parentActivityName=".UserWindow"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dell.quizbox.UserWindow" />
+        </activity>
+        <activity
+            android:name=".MCQ3"
+            android:label="@string/title_activity_mcq3"
+            android:parentActivityName=".UserWindow"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dell.quizbox.UserWindow" />
+        </activity>
     </application>
 
 </manifest>

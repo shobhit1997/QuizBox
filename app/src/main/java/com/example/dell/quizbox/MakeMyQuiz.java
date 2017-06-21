@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -24,12 +28,17 @@ public class MakeMyQuiz extends Fragment {
     View myView;
     ArrayList<Integer> icon1=new ArrayList<>();
     ArrayList<String> name1=new ArrayList<>();
-
+    private FirebaseDatabase myDatabase;
+    private DatabaseReference other_quizzes;
+    private MyQuiz myQuiz;
+    private String USER_NAME=UserWindow.USER_NAME;
+    ArrayList<Question> questionsArray=new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView=inflater.inflate(R.layout.make_my_quiz,container,false);
+
 
 
         return myView;
@@ -45,14 +54,57 @@ public class MakeMyQuiz extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+
+        myDatabase=FirebaseDatabase.getInstance();
+        other_quizzes=myDatabase.getReference().child("other_quizzes");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         TextView save=(TextView) getActivity().findViewById(R.id.save);
         TextView saveNadd=(TextView) getActivity().findViewById(R.id.saveNadd);
+
+
+
+
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Toast.makeText(getActivity(), "Save", Toast.LENGTH_SHORT).show();
+                EditText quizName=(EditText)getActivity().findViewById(R.id.quiz_name);
+                EditText quesText=(EditText)getActivity().findViewById(R.id.ques);
+                EditText ansText=(EditText)getActivity().findViewById(R.id.ans);
+                EditText wrngans1=(EditText)getActivity().findViewById(R.id.wrngans1);
+                EditText wrngans2=(EditText)getActivity().findViewById(R.id.wrngans2);
+                EditText wrngans3=(EditText)getActivity().findViewById(R.id.wrngans3);
+                Question question=new Question(quesText.getText().toString(),ansText.getText().toString(),wrngans1.getText().toString(),wrngans2.getText().toString(),wrngans3.getText().toString());
+                questionsArray.add(question);
+
+                quesText.setEnabled(false);
+                ansText.setEnabled(false);
+                wrngans1.setEnabled(false);
+                wrngans2.setEnabled(false);
+                wrngans3.setEnabled(false);
+                myQuiz=new MyQuiz(USER_NAME,quizName.getText().toString(),questionsArray);
+                other_quizzes.push().setValue(myQuiz);
 
             }
         });
@@ -60,6 +112,27 @@ public class MakeMyQuiz extends Fragment {
         saveNadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText quizName=(EditText)getActivity().findViewById(R.id.quiz_name);
+
+
+                if(quizName.isEnabled())
+                {
+
+                    quizName.setEnabled(false);
+                }
+                EditText quesText=(EditText)getActivity().findViewById(R.id.ques);
+                EditText ansText=(EditText)getActivity().findViewById(R.id.ans);
+                EditText wrngans1=(EditText)getActivity().findViewById(R.id.wrngans1);
+                EditText wrngans2=(EditText)getActivity().findViewById(R.id.wrngans2);
+                EditText wrngans3=(EditText)getActivity().findViewById(R.id.wrngans3);
+
+                Question question=new Question(quesText.getText().toString(),ansText.getText().toString(),wrngans1.getText().toString(),wrngans2.getText().toString(),wrngans3.getText().toString());
+                questionsArray.add(question);
+                quesText.setText("");
+                ansText.setText("");
+                wrngans1.setText("");
+                wrngans2.setText("");
+                wrngans3.setText("");
 
                 Toast.makeText(getActivity(), "Save And Add", Toast.LENGTH_SHORT).show();
 

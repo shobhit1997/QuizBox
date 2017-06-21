@@ -2,8 +2,10 @@ package com.example.dell.quizbox;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by DELL on 6/20/2017.
@@ -35,6 +47,11 @@ public class Categories extends Fragment {
     View myView;
     ArrayList<Integer> icon1=new ArrayList<>();
     ArrayList<String> name1=new ArrayList<>();
+    ArrayList<String> apis=new ArrayList<>();
+    static ArrayList<String> answers=new ArrayList<>();
+    static ArrayList<String> questions=new ArrayList<>();
+    static ArrayList<String[]> options=new ArrayList<>();
+    String selecteditem;
 
 
     @Nullable
@@ -76,6 +93,17 @@ public class Categories extends Fragment {
         name1.add("Gadgets");
         name1.add("Sports");
         name1.add("Vehicles");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=11&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=32&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=29&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=10&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=26&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=12&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=17&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=30&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=21&type=multiple&encode=url3986");
+        apis.add(" https://opentdb.com/api.php?amount=10&category=28&type=multiple&encode=url3986");
+
 
         CustomListAdapter adapter=new CustomListAdapter(getActivity(),name1,icon1);
 
@@ -89,11 +117,106 @@ public class Categories extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                String Selecteditem= name1.get(position);
+                selecteditem= name1.get(position);
+                questions.clear();
+                answers.clear();
+                options.clear();
+                DownloadTask downloadTask=new DownloadTask();
+                downloadTask.execute(apis.get(position));
 
-                Toast.makeText(getActivity(), Selecteditem, Toast.LENGTH_SHORT).show();
+
+
+
+                Toast.makeText(getActivity().getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
 
             }
         });
+    }
+    public class DownloadTask extends AsyncTask<String,Void,String>
+    {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String result=null;
+            URL url;
+            HttpURLConnection urlConnection=null;
+            try {
+                url=new URL(urls[0]);
+                urlConnection=(HttpURLConnection) url.openConnection();
+                InputStream in=urlConnection.getInputStream();
+                InputStreamReader isr=new InputStreamReader(in);
+                int data=isr.read();
+                result="";
+                while(data!=-1)
+                {
+                    char current=(char)data;
+                    result+=current;
+                    data=isr.read();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            try {
+                JSONObject jsonObject=new JSONObject(result);
+                JSONArray jsonArray=jsonObject.getJSONArray("results");
+                for(int index=0;index<=9;index++) {
+                    JSONObject obj = jsonArray.getJSONObject(index);
+                    String ques = obj.getString("question");
+                    String ans = obj.getString("correct_answer");
+                    JSONArray wrngAns = obj.getJSONArray("incorrect_answers");
+                    String WrongAns[] = {wrngAns.getString(0), wrngAns.getString(1), wrngAns.getString(2)};
+
+                    ques = java.net.URLDecoder.decode(ques, "UTF-8");
+                    ans = java.net.URLDecoder.decode(ans, "UTF-8");
+                    WrongAns[0] = java.net.URLDecoder.decode(WrongAns[0], "UTF-8");
+                    WrongAns[1] = java.net.URLDecoder.decode(WrongAns[1], "UTF-8");
+                    WrongAns[2] = java.net.URLDecoder.decode(WrongAns[2], "UTF-8");
+                    Random rand = new Random();
+                    int ansId = rand.nextInt(4);
+                    String opt[] = new String[4];
+                    opt[ansId] = ans;
+                    int i = 0;
+                    for (int x = 0; x <= 3; x++) {
+                        if (x == ansId) continue;
+                        opt[x] = WrongAns[i++];
+                    }
+                    questions.add(ques);
+                    answers.add(ans);
+                    options.add(opt);
+                    Log.i("Question", questions.get(index));
+                    Log.i("Ans", answers.get(index));
+                    Log.i("Option 1", options.get(index)[0]);
+                    Log.i("Option 2", options.get(index)[1]);
+                    Log.i("Option 3", options.get(index)[2]);
+                    Log.i("Option 4", options.get(index)[3]);
+                    Intent intent=new Intent(getActivity().getApplicationContext(),MCQ3.class);
+                    intent.putExtra("category",selecteditem);
+                    startActivity(intent);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.i("Error","JSON");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                Log.i("Error","Error1");
+
+
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+                Log.i("Error","Error1");
+            }
+            //Log.i("Content",result);
+        }
     }
 }

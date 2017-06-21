@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Create your own" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_leader"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="LeaderBoard" />
     </group>
 
     <item android:title="Communicate">

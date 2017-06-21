@@ -2,10 +2,13 @@ package com.example.dell.quizbox;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +20,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserWindow extends AppCompatActivity implements
          NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +39,15 @@ public class UserWindow extends AppCompatActivity implements
     ArrayList<Integer> icon=new ArrayList<>();
     ArrayList<String> name=new ArrayList<>();
 
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    public static final int RC_SIGN_IN = 1;
+   static  String USER_NAME="ANONYMOUS";
+    static String EMAIL_ID="@android.com";
+    TextView name1;
+    TextView id1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +55,8 @@ public class UserWindow extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        mFirebaseAuth=FirebaseAuth.getInstance();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -45,9 +67,66 @@ public class UserWindow extends AppCompatActivity implements
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        name1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.username1);
+        id1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.id1);
+
+
+        mAuthStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user=firebaseAuth.getCurrentUser();
+                if(user!=null)
+                {
+                    //if signed in
+
+                    onSignedInInitialise(user.getDisplayName(),user.getEmail());
 
 
 
+
+                }
+                else
+                {
+                    //if signed out
+                    onSignedOutCleanUp();
+
+                }
+
+            }
+        };
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SIGN_IN)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                Toast.makeText(getApplicationContext(),"Signed In!",Toast.LENGTH_SHORT).show();
+            }
+            else if(resultCode==RESULT_CANCELED)
+            {
+                Toast.makeText(getApplicationContext(),"Sign In Canceled!",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mAuthStateListener!=null)
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
@@ -111,11 +190,14 @@ public class UserWindow extends AppCompatActivity implements
                     .commit();
 
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_leader) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_signOut) {
+
+            AuthUI.getInstance().signOut(this);
+            finish();
 
         }
 
@@ -123,6 +205,38 @@ public class UserWindow extends AppCompatActivity implements
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onSignedInInitialise(String username,String email)
+    {
+        Log.i("UserName",username);
+        Log.i("Email",email);
+       if(username!=null)
+        USER_NAME=username;
+        if(email!=null)
+        EMAIL_ID=email;
+
+        Log.i("UserName",USER_NAME);
+        Log.i("Email",EMAIL_ID);
+
+
+        if(name1!=null)
+        name1.setText(USER_NAME);
+        if(id1!=null)
+       id1.setText(EMAIL_ID);
+    }
+    public void onSignedOutCleanUp()
+    {
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setIsSmartLockEnabled(false)
+                        .setAvailableProviders(
+                                Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .build(),
+                RC_SIGN_IN);
+    }
+
 
 
 }
