@@ -23,6 +23,7 @@ import com.facebook.FacebookSdk;
 
 import com.facebook.CallbackManager;
 import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
@@ -166,10 +167,23 @@ public class mcq extends AppCompatActivity {
 
 
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-            ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+            String sh1="#Score:"+Score;
+            ShareHashtag sh=new ShareHashtag.Builder()
+                    .setHashtag(sh1)
                     .build();
-            shareDialog.show(linkContent);
+
+           /* ShareLinkContent linkContent = new ShareLinkContent.Builder()
+
+                    .setShareHashtag(sh)
+                    .setQuote("Score:"+Score)
+             .build();*/
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                    .setQuote(sh1)
+                    .build();
+
+
+
 
             shareButton.setShareContent(linkContent);
         }

@@ -17,27 +17,27 @@ import java.util.ArrayList;
 public class CustomListAdapter1 extends ArrayAdapter<String> {
 
     private final Activity context;
-    ArrayList<Integer> icon=new ArrayList<>();
+    ArrayList<Integer> score=new ArrayList<>();
     ArrayList<String> name=new ArrayList<>();
-    public CustomListAdapter1(Activity context, ArrayList<String> itemname, ArrayList<Integer> imgid) {
-        super(context, R.layout.list_single, itemname);
+    public CustomListAdapter1(Activity context, ArrayList<String> username, ArrayList<Integer> score1) {
+        super(context, R.layout.list_single1, username);
         // TODO Auto-generated constructor stub
 
         this.context=context;
-        this.name=itemname;
-        this.icon=imgid;
+        this.name=username;
+        this.score=score1;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.list_single1, null,true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.Itemname);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.Username);
+        TextView scoreView = (TextView) rowView.findViewById(R.id.score);
 
 
         txtTitle.setText(name.get(position));
-        imageView.setImageResource(icon.get(position));
+        scoreView.setText(score.get(position)+"");
 
         return rowView;
 

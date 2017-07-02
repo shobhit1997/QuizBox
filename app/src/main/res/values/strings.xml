@@ -17,4 +17,6 @@
     <string name="title_activity_mcq">QuizBox</string>
     <string name="title_activity_mcq2">QuizBox</string>
     <string name="title_activity_mcq3">QuizBox</string>
+    <string name="title_activity_buzzer">BuzzerActivity</string>
+    <string name="title_activity_leader_board">LeaderBoard</string>
 </resources>
