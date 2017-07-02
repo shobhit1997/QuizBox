@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class Categories extends Fragment {
     static ArrayList<String> answers=new ArrayList<>();
     static ArrayList<String> questions=new ArrayList<>();
     static ArrayList<String[]> options=new ArrayList<>();
+    private ProgressBar loader;
     String selecteditem;
 
 
@@ -72,7 +74,8 @@ public class Categories extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
+        loader.setVisibility(View.INVISIBLE);
         icon1.add(R.drawable.film);
         icon1.add(R.drawable.cartoons);
         icon1.add(R.drawable.comics);
@@ -108,7 +111,8 @@ public class Categories extends Fragment {
         CustomListAdapter adapter=new CustomListAdapter(getActivity(),name1,icon1);
 
 
-        ListView category=(ListView)getView().findViewById(R.id.categoriesList);
+        final ListView category=(ListView)getView().findViewById(R.id.categoriesList);
+        category.setVisibility(View.VISIBLE);
         category.setAdapter(adapter);
 
         category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,6 +125,8 @@ public class Categories extends Fragment {
                 questions.clear();
                 answers.clear();
                 options.clear();
+                category.setVisibility(View.GONE);
+                loader.setVisibility(View.VISIBLE);
                 DownloadTask downloadTask=new DownloadTask();
                 downloadTask.execute(apis.get(position));
 
@@ -135,8 +141,11 @@ public class Categories extends Fragment {
     public class DownloadTask extends AsyncTask<String,Void,String>
     {
 
+
         @Override
         protected String doInBackground(String... urls) {
+
+
             String result=null;
             URL url;
             HttpURLConnection urlConnection=null;
@@ -198,9 +207,16 @@ public class Categories extends Fragment {
                     Log.i("Option 2", options.get(index)[1]);
                     Log.i("Option 3", options.get(index)[2]);
                     Log.i("Option 4", options.get(index)[3]);
+
+                    loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
+                    loader.setVisibility(View.GONE);
+
                     Intent intent=new Intent(getActivity().getApplicationContext(),MCQ3.class);
                     intent.putExtra("category",selecteditem);
                     startActivity(intent);
+
+                    ListView category=(ListView)getView().findViewById(R.id.categoriesList);
+                    category.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

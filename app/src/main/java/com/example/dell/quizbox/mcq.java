@@ -1,6 +1,7 @@
 package com.example.dell.quizbox;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,10 +10,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+
+import com.facebook.CallbackManager;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 
@@ -25,6 +38,11 @@ public class mcq extends AppCompatActivity {
     String answer;
     int Score;
     int questionNo=0;
+    ShareButton shareButton;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +50,10 @@ public class mcq extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         Intent i=getIntent();
         category=i.getStringExtra("category");
+
+        shareButton = (ShareButton)findViewById(R.id.shareButton);
 
         TextView cat=(TextView)findViewById(R.id.cat);
         cat.setText(category);
@@ -46,7 +64,36 @@ public class mcq extends AppCompatActivity {
         setQuestion(questionNo);
 
 
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+                Toast.makeText(getApplicationContext(),"Cancelled",Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            } });
     }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 
     public void setQuestion(int n)
     {   if(n<10) {
@@ -79,15 +126,13 @@ public class mcq extends AppCompatActivity {
             imv.setImageResource(R.drawable.sad);
         }*/
 
-        TextView ques=(TextView)findViewById(R.id.question);
-        ques.setAlpha(0f);
-        RadioGroup rg=(RadioGroup)findViewById(R.id.radiogroup);
-        rg.setAlpha(0f);
-        RelativeLayout rl=(RelativeLayout)findViewById(R.id.skipButton);
-        rl.setAlpha(0f);
+        LinearLayout lo=(LinearLayout)findViewById(R.id.linearLayout2);
+        lo.setVisibility(View.GONE);
         TextView sco=(TextView)findViewById(R.id.score);
-        sco.setAlpha(1f);
+        sco.setVisibility(View.VISIBLE);
         sco.setText("Score : "+Score);
+        shareButton.setVisibility(View.VISIBLE);
+        shareButton.setEnabled(true);
         Log.i("Score",Score+"");
 
 
@@ -113,6 +158,23 @@ public class mcq extends AppCompatActivity {
     public void next(View view)
     {
         setQuestion(++questionNo);
+
+
+    }
+    public void share(View view)
+    {
+
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                    .build();
+            shareDialog.show(linkContent);
+
+            shareButton.setShareContent(linkContent);
+        }
+
+
 
 
     }

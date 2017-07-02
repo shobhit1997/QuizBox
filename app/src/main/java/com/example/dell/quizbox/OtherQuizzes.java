@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -45,6 +46,7 @@ public class OtherQuizzes extends Fragment {
     ArrayList<String> quizName=new ArrayList<>();
     ArrayList<MyQuiz> myQuiz=new ArrayList<>();
     ListView category;
+    private ProgressBar loader;
 
     CustomListAdapter adapter;
 
@@ -69,13 +71,17 @@ public class OtherQuizzes extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         myDatabase=FirebaseDatabase.getInstance();
+
+        loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
+        loader.setVisibility(View.VISIBLE);
         other_quizzes=myDatabase.getReference().child("other_quizzes");
 
         myChildListener=new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-
+                category.setVisibility(View.GONE);
+                loader.setVisibility(View.VISIBLE);
 
                 Log.i("Hello","Hii");
                 try {
@@ -84,7 +90,11 @@ public class OtherQuizzes extends Fragment {
                     Log.i("Quiz Name",myQuiz1.getQuizName());
                     icon1.add(R.drawable.film);
                     name1.add(myQuiz1.getQuizName());
+                    loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
+                    loader.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
+                    //ListView category=(ListView)getView().findViewById(R.id.categoriesList);
+                    category.setVisibility(View.VISIBLE);
 
                 }catch (Exception e)
                 {

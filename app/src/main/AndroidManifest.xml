@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dell.quizbox">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" tools:replace="android:value"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,6 +75,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
         </activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1471395702923910"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

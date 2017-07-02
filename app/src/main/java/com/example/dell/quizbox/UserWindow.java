@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class UserWindow extends AppCompatActivity implements
     static String EMAIL_ID="@android.com";
     TextView name1;
     TextView id1;
+
+   // private ShareActionProvider mShareActionProvider;
 
 
     @Override
@@ -143,6 +146,8 @@ public class UserWindow extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_window, menu);
+       /* MenuItem item = menu.findItem(R.id.nav_share);
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();*/
         return true;
     }
 
@@ -193,6 +198,12 @@ public class UserWindow extends AppCompatActivity implements
         } else if (id == R.id.nav_leader) {
 
         } else if (id == R.id.nav_share) {
+           Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent,"Select the app to share!"));
+
 
         } else if (id == R.id.nav_signOut) {
 
@@ -236,6 +247,12 @@ public class UserWindow extends AppCompatActivity implements
                         .build(),
                 RC_SIGN_IN);
     }
+
+   /* private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }*/
 
 
 

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -39,13 +40,18 @@ public class SInglePlayerActivity extends AppCompatActivity {
     static ArrayList<String> questions=new ArrayList<>();
     static ArrayList<String[]> options=new ArrayList<>();
     String selecteditem;
+    private ProgressBar loader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        loader=(ProgressBar)findViewById(R.id.progressBar1);
+        loader.setVisibility(View.GONE);
         Intent i=getIntent();
 
         icon.add(R.drawable.film);
@@ -82,7 +88,7 @@ public class SInglePlayerActivity extends AppCompatActivity {
         CustomListAdapter adapter=new CustomListAdapter(this,name,icon);
 
 
-        ListView category=(ListView)findViewById(R.id.categories);
+        final ListView category=(ListView)findViewById(R.id.categories);
         category.setAdapter(adapter);
 
         category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,6 +101,10 @@ public class SInglePlayerActivity extends AppCompatActivity {
                 questions.clear();
                 answers.clear();
                 options.clear();
+
+
+                loader.setVisibility(View.VISIBLE);
+                category.setVisibility(View.GONE);
                 DownloadTask downloadTask=new DownloadTask();
                 downloadTask.execute(apis.get(position));
 
@@ -174,9 +184,14 @@ public class SInglePlayerActivity extends AppCompatActivity {
                     Log.i("Option 2", options.get(index)[1]);
                     Log.i("Option 3", options.get(index)[2]);
                     Log.i("Option 4", options.get(index)[3]);
+
+                    loader=(ProgressBar)findViewById(R.id.progressBar1);
+                    loader.setVisibility(View.GONE);
                     Intent intent=new Intent(getApplicationContext(),mcq.class);
                     intent.putExtra("category",selecteditem);
                     startActivity(intent);
+                    ListView category=(ListView)findViewById(R.id.categories);
+                    category.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
