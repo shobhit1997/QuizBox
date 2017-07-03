@@ -85,6 +85,24 @@
             android:authorities="com.facebook.app.FacebookContentProvider1471395702923910"
             android:exported="true" />
 
+        <activity
+            android:name=".BuzzerActivity"
+            android:label="@string/title_activity_buzzer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dell.quizbox.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BuzzerMcq"
+            android:label="@string/title_activity_buzzer_mcq"
+            android:parentActivityName=".BuzzerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dell.quizbox.BuzzerActivity" />
+        </activity>
     </application>
 
 </manifest>

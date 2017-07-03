@@ -3,23 +3,19 @@ package com.example.dell.quizbox;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 
 import com.facebook.CallbackManager;
 import com.facebook.share.Sharer;
@@ -40,9 +36,10 @@ public class mcq extends AppCompatActivity {
     int Score;
     int questionNo=0;
     ShareButton shareButton;
-
+    ProgressBar timerbar;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+    CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +50,7 @@ public class mcq extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i=getIntent();
         category=i.getStringExtra("category");
-
+       timerbar=(ProgressBar)findViewById(R.id.timer);
         shareButton = (ShareButton)findViewById(R.id.shareButton);
 
         TextView cat=(TextView)findViewById(R.id.cat);
@@ -99,6 +96,8 @@ public class mcq extends AppCompatActivity {
     public void setQuestion(int n)
     {   if(n<10) {
 
+        timerbar.setProgress(10000);
+
         TextView ques = (TextView) findViewById(R.id.question);
         RadioButton O1 = (RadioButton) findViewById(R.id.Option1);
         RadioButton O2 = (RadioButton) findViewById(R.id.Option2);
@@ -110,6 +109,20 @@ public class mcq extends AppCompatActivity {
         O2.setText(options.get(n)[1]);
         O3.setText(options.get(n)[2]);
         O4.setText(options.get(n)[3]);
+        timer=new CountDownTimer(10 * 1000+100, 1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.i("Time Left",millisUntilFinished+"");
+                timerbar.setProgress((int)millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+
+                setQuestion(++questionNo);
+
+            }
+        }.start();
     }
     else
     {
@@ -127,7 +140,7 @@ public class mcq extends AppCompatActivity {
             imv.setImageResource(R.drawable.sad);
         }*/
 
-        LinearLayout lo=(LinearLayout)findViewById(R.id.linearLayout2);
+        LinearLayout lo=(LinearLayout)findViewById(R.id.relativeLayout2);
         lo.setVisibility(View.GONE);
         TextView sco=(TextView)findViewById(R.id.score);
         sco.setVisibility(View.VISIBLE);
@@ -142,6 +155,7 @@ public class mcq extends AppCompatActivity {
     }
     public void Check(View view)
     {
+        timer.cancel();
         RadioButton rb=(RadioButton)findViewById(view.getId());
 
         String Ans=rb.getText().toString();

@@ -23,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+        if(id==R.id.buzzer_round)
+        {
+            Intent i=new Intent(getApplicationContext(),BuzzerActivity.class);
+
+            startActivity(i);
+
+
+        }
         else
         {
             Intent i=new Intent(getApplicationContext(),UserWindow.class);

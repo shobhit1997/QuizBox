@@ -10,12 +10,20 @@
     tools:showIn="@layout/activity_mcq2">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="1"
         android:orientation="vertical"
         android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/timer"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10000"
+            android:progress="10000" />
 
 
         <TextView
@@ -120,7 +128,7 @@
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout2"
+        android:layout_below="@+id/relativeLayout2"
         android:layout_marginTop="139dp"
         android:text="Score:"
         android:textAlignment="center"
