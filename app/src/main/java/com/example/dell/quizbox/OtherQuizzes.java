@@ -88,7 +88,7 @@ public class OtherQuizzes extends Fragment {
                     MyQuiz myQuiz1= dataSnapshot.getValue(MyQuiz.class);
                     myQuiz.add(myQuiz1);
                     Log.i("Quiz Name",myQuiz1.getQuizName());
-                    icon1.add(R.drawable.film);
+                    icon1.add(R.drawable.question);
                     name1.add(myQuiz1.getQuizName());
                     loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
                     loader.setVisibility(View.GONE);

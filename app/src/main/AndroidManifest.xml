@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -56,7 +56,8 @@
             android:name=".mcq"
             android:label="@string/title_activity_mcq"
             android:parentActivityName=".SInglePlayerActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.SInglePlayerActivity" />
@@ -65,7 +66,8 @@
             android:name=".MCQ2"
             android:label="@string/title_activity_mcq2"
             android:parentActivityName=".UserWindow"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -74,7 +76,8 @@
             android:name=".MCQ3"
             android:label="@string/title_activity_mcq3"
             android:parentActivityName=".UserWindow"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -98,7 +101,8 @@
             android:name=".BuzzerMcq"
             android:label="@string/title_activity_buzzer_mcq"
             android:parentActivityName=".BuzzerActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.BuzzerActivity" />

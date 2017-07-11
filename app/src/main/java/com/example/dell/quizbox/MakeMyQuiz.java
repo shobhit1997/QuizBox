@@ -88,23 +88,36 @@ public class MakeMyQuiz extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Save", Toast.LENGTH_SHORT).show();
+
                 EditText quizName=(EditText)getActivity().findViewById(R.id.quiz_name);
                 EditText quesText=(EditText)getActivity().findViewById(R.id.ques);
                 EditText ansText=(EditText)getActivity().findViewById(R.id.ans);
                 EditText wrngans1=(EditText)getActivity().findViewById(R.id.wrngans1);
                 EditText wrngans2=(EditText)getActivity().findViewById(R.id.wrngans2);
                 EditText wrngans3=(EditText)getActivity().findViewById(R.id.wrngans3);
-                Question question=new Question(quesText.getText().toString(),ansText.getText().toString(),wrngans1.getText().toString(),wrngans2.getText().toString(),wrngans3.getText().toString());
-                questionsArray.add(question);
+                String ques=quesText.getText().toString().trim();
+                String ans=ansText.getText().toString().trim();
+                String incans1=wrngans1.getText().toString().trim();
+                String incans2=wrngans2.getText().toString().trim();
+                String incans3=wrngans3.getText().toString().trim();
+                if(ques.length()==0||ans.length()==0||incans1.length()==0||incans2.length()==0||incans3.length()==0)
+                {
+                    Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Question question = new Question(quesText.getText().toString(), ansText.getText().toString(), wrngans1.getText().toString(), wrngans2.getText().toString(), wrngans3.getText().toString());
+                    questionsArray.add(question);
 
-                quesText.setEnabled(false);
-                ansText.setEnabled(false);
-                wrngans1.setEnabled(false);
-                wrngans2.setEnabled(false);
-                wrngans3.setEnabled(false);
-                myQuiz=new MyQuiz(USER_NAME,quizName.getText().toString(),questionsArray);
-                other_quizzes.push().setValue(myQuiz);
+                    quesText.setEnabled(false);
+                    ansText.setEnabled(false);
+                    wrngans1.setEnabled(false);
+                    wrngans2.setEnabled(false);
+                    wrngans3.setEnabled(false);
+                    myQuiz = new MyQuiz(USER_NAME, quizName.getText().toString(), questionsArray);
+                    other_quizzes.push().setValue(myQuiz);
+
+                    Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -126,16 +139,26 @@ public class MakeMyQuiz extends Fragment {
                 EditText wrngans2=(EditText)getActivity().findViewById(R.id.wrngans2);
                 EditText wrngans3=(EditText)getActivity().findViewById(R.id.wrngans3);
 
-                Question question=new Question(quesText.getText().toString(),ansText.getText().toString(),wrngans1.getText().toString(),wrngans2.getText().toString(),wrngans3.getText().toString());
-                questionsArray.add(question);
-                quesText.setText("");
-                ansText.setText("");
-                wrngans1.setText("");
-                wrngans2.setText("");
-                wrngans3.setText("");
+                String ques=quesText.getText().toString().trim();
+                String ans=ansText.getText().toString().trim();
+                String incans1=wrngans1.getText().toString().trim();
+                String incans2=wrngans2.getText().toString().trim();
+                String incans3=wrngans3.getText().toString().trim();
+                if(ques.length()==0||ans.length()==0||incans1.length()==0||incans2.length()==0||incans3.length()==0)
+                {
+                    Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Question question = new Question(quesText.getText().toString(), ansText.getText().toString(), wrngans1.getText().toString(), wrngans2.getText().toString(), wrngans3.getText().toString());
+                    questionsArray.add(question);
+                    quesText.setText("");
+                    ansText.setText("");
+                    wrngans1.setText("");
+                    wrngans2.setText("");
+                    wrngans3.setText("");
 
-                Toast.makeText(getActivity(), "Save And Add", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

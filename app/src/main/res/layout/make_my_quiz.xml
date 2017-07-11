@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/createquiz" />
+
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:columnCount="2"
         android:layout_weight="1"
         android:layout_alignParentTop="true"
@@ -95,7 +104,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="3"
             android:layout_rowWeight="1"
-            android:text="Wrong Answer 1" />
+            android:text="Incorrect 1" />
 
         <EditText
             android:id="@+id/wrngans1"
@@ -119,7 +128,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="4"
             android:layout_rowWeight="1"
-            android:text="Wrong Answer 2" />
+            android:text="Incorrect 2" />
 
         <EditText
             android:id="@+id/wrngans2"
@@ -140,10 +149,10 @@
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_columnWeight="1"
-           android:layout_gravity="fill_horizontal"
+            android:layout_gravity="fill_horizontal"
             android:layout_row="5"
             android:layout_rowWeight="1"
-            android:text="Wrong Answer 3" />
+            android:text="Incorrect 3" />
 
         <EditText
             android:id="@+id/wrngans3"
@@ -171,16 +180,17 @@
     <TextView
 
         android:id="@+id/save"
+
         android:layout_width="0dp"
 
-        android:layout_height="60dp"
 
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
 
         android:layout_weight="1"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@drawable/save"
+        android:foreground="@drawable/save"
         android:paddingTop="20dp"
-
-        android:text="Save"
         android:textAlignment="center"
         android:textSize="18sp" />
 
@@ -189,15 +199,15 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
 
+        android:layout_margin="10dp"
+
         android:layout_weight="1"
+        android:background="@drawable/add_more"
 
-        android:background="@android:color/holo_blue_dark"
+        android:foreground="@drawable/add_more"
         android:paddingTop="20dp"
-        android:text="Save and Add More"
         android:textAlignment="center"
-
-        android:textSize="18sp"
-         />
+        android:textSize="18sp" />
 
 </LinearLayout>
 </LinearLayout>

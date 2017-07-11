@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -142,9 +143,18 @@ public class MCQ3 extends AppCompatActivity {
         LinearLayout lo=(LinearLayout)findViewById(R.id.relativeLayout2);
         lo.setVisibility(View.GONE);
         TextView sco=(TextView)findViewById(R.id.score);
+        TextView wrngsco=(TextView)findViewById(R.id.wrongScore);
+        ImageView imageview=(ImageView) findViewById(R.id.imageView8);
+        imageview.setVisibility(View.VISIBLE);
+        ImageView imageview1=(ImageView) findViewById(R.id.imageView9);
+        imageview1.setVisibility(View.VISIBLE);
         sco.setVisibility(View.VISIBLE);
-        sco.setText("Score : "+Score);
-
+        wrngsco.setVisibility(View.VISIBLE);
+        sco.setText(String.valueOf(Score));
+        wrngsco.setText(String.valueOf(10-Score));
+        shareButton.setVisibility(View.VISIBLE);
+        shareButton.setEnabled(true);
+        Log.i("Score",Score+"");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase myDatabase=FirebaseDatabase.getInstance();
         DatabaseReference users=myDatabase.getReference().child("Users");

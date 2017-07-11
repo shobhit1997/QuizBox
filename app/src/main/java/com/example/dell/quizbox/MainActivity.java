@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(id==R.id.buzzer_round)
+        else if(id==R.id.buzzer_round)
         {
             Intent i=new Intent(getApplicationContext(),BuzzerActivity.class);
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        else
+        else if(id==R.id.multiplayer)
         {
             Intent i=new Intent(getApplicationContext(),UserWindow.class);
 
