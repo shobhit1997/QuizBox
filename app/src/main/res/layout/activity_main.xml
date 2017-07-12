@@ -97,7 +97,7 @@
 
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/cardview_light_background"
-        android:textColorLink="@color/colorAccent"
+
         android:textSize="50sp" />
 
     <TextView
@@ -116,7 +116,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/cardview_light_background"
-        android:textColorLink="@color/colorAccent"
+
         android:textSize="50sp" />
 
     <TextView
@@ -133,7 +133,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/cardview_light_background"
-        android:textColorLink="@color/colorAccent"
+
         android:textSize="50sp" />
 
 </RelativeLayout>

@@ -180,6 +180,8 @@ public class mcq extends AppCompatActivity {
     }
     public void next(View view)
     {
+
+        timer.cancel();
         setQuestion(++questionNo);
 
 

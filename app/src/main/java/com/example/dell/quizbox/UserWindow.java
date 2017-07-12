@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,8 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.*;
+import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -59,9 +61,9 @@ public class UserWindow extends AppCompatActivity implements
     private FirebaseDatabase myDatabase;
     private DatabaseReference users;
     private DatabaseReference usersId;
-
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     private ChildEventListener myChildListener;
 
     public static final int RC_SIGN_IN = 1;
@@ -83,8 +85,8 @@ public class UserWindow extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
-        mFirebaseAuth=FirebaseAuth.getInstance();
 
         myDatabase=FirebaseDatabase.getInstance();
         users=myDatabase.getReference().child("Users");
@@ -101,7 +103,6 @@ public class UserWindow extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         name1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.username1);
         id1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.id1);
-
 
         mAuthStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -124,6 +125,8 @@ public class UserWindow extends AppCompatActivity implements
 
             }
         };
+
+
 
 
 
@@ -156,8 +159,11 @@ public class UserWindow extends AppCompatActivity implements
     protected void onPause() {
         super.onPause();
         if(mAuthStateListener!=null)
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -253,23 +259,25 @@ public class UserWindow extends AppCompatActivity implements
         return true;
     }
 
+
+
     public void onSignedInInitialise(String username,String email,String uid)
     {
         Log.i("UserName",username);
         Log.i("Email",email);
-       if(username!=null)
-        USER_NAME=username;
+        if(username!=null)
+            USER_NAME=username;
         if(email!=null)
-        EMAIL_ID=email;
+            EMAIL_ID=email;
 
         Log.i("UserName",USER_NAME);
         Log.i("Email",EMAIL_ID);
 
 
         if(name1!=null)
-        name1.setText(USER_NAME);
+            name1.setText(USER_NAME);
         if(id1!=null)
-       id1.setText(EMAIL_ID);
+            id1.setText(EMAIL_ID);
 
         user=new User(uid,username,0);
         if(users.child(uid)==null) {
@@ -289,7 +297,8 @@ public class UserWindow extends AppCompatActivity implements
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
+                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                        .setTheme(R.style.GreenTheme)
                         .setAvailableProviders(
                                 Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                         new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
@@ -297,83 +306,10 @@ public class UserWindow extends AppCompatActivity implements
                 RC_SIGN_IN);
     }
 
-   /* private void setShareIntent(Intent shareIntent) {
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent);
-        }
-    }*/
-
-  /*  public class DownloadTask extends AsyncTask<String,Void,String>
-    {
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-
-            myChildListener=new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-
-
-
-                    try {
-                        User user1= dataSnapshot.getValue(User.class);
-                        if(user1.getUserId().equals(user.getUserId()))
-                        {
-                            flag=false;
-                            Log.i("Hello","Hiiiiiiiiiiiii");
-                        }
-
-                    }catch (Exception e)
-                    {
-
-                        System.out.print(e);
-                        e.printStackTrace();
-                    }
 
 
 
 
 
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-            users.addChildEventListener(myChildListener);
-
-            Log.i("Flag",flag+"");
-           return flag+"";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.i("Flag",flag+"");
-            if(result.equals(true))
-            users.push().setValue(user);
-
-
-            //Log.i("Content",result);
-        }
-    }*/
 
 }

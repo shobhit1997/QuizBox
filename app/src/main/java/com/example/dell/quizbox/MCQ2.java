@@ -206,6 +206,7 @@ public class MCQ2 extends AppCompatActivity {
     }
     public void next(View view)
     {
+        timer.cancel();
         setQuestion(++questionNo);
 
 

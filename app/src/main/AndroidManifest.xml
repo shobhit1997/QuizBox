@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/GreenTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
@@ -29,7 +29,7 @@
             android:name=".SInglePlayerActivity"
             android:label="@string/title_activity_single_player"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/GreenTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.MainActivity" />
@@ -38,7 +38,7 @@
             android:name=".Multiplayer"
             android:label="@string/title_activity_multiplayer"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/GreenTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.MainActivity" />
@@ -47,7 +47,7 @@
             android:name=".UserWindow"
             android:label="@string/title_activity_user_window"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/GreenTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.MainActivity" />
@@ -56,8 +56,8 @@
             android:name=".mcq"
             android:label="@string/title_activity_mcq"
             android:parentActivityName=".SInglePlayerActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleInstance" >
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.SInglePlayerActivity" />
@@ -66,8 +66,8 @@
             android:name=".MCQ2"
             android:label="@string/title_activity_mcq2"
             android:parentActivityName=".UserWindow"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleInstance">
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -76,8 +76,8 @@
             android:name=".MCQ3"
             android:label="@string/title_activity_mcq3"
             android:parentActivityName=".UserWindow"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleInstance">
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -92,7 +92,7 @@
             android:name=".BuzzerActivity"
             android:label="@string/title_activity_buzzer"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/GreenTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.MainActivity" />
@@ -101,8 +101,8 @@
             android:name=".BuzzerMcq"
             android:label="@string/title_activity_buzzer_mcq"
             android:parentActivityName=".BuzzerActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleInstance">
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.BuzzerActivity" />
