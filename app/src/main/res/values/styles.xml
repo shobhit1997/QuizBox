@@ -24,17 +24,32 @@
         <item name="colorControlNormal">@color/material_green_500</item>
         <item name="colorControlActivated">@color/material_lime_a700</item>
         <item name="colorControlHighlight">@color/material_green_a200</item>
-        <item name="android:windowBackground">@color/material_green_50</item>
+        <item name="android:windowBackground">@color/colorAccent</item>
     </style>
 
     <style name="GreenTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+
     </style>
 
-    <style name="GreenTheme.AppBarOverlay" parent="FirebaseUI" />
+    <style name="GreenTheme.AppBarOverlay" parent="GreenTheme" >
 
-    <style name="GreenTheme.PopupOverlay" parent="FirebaseUI" />
+    </style>
+
+    <style name="GreenTheme.PopupOverlay" parent="GreenTheme" />
+
+    <style name="notitlebar" parent="android:Theme.Black.NoTitleBar.Fullscreen" />
+
+    <style name="GreenTheme.NoTitleBar.Fullscreen" parent="GreenTheme" >
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 
 
 </resources>

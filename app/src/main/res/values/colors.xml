@@ -6,7 +6,8 @@
     <color name="material_green_50">#E8F5E9</color>
     <color name="material_green_500">#4CAF50</color>
     <color name="material_green_700">#388E3C</color>
-    <color name="material_green_a200">#69F0AE</color>
+    <color name="material_green_a200">#69f0ae</color>
     <color name="material_lime_a700">#AEEA00</color>
-    <color name="material_purple_a700">#AA00FF</color>
+    <color name="material_purple_a700">#aa00ff</color>
+    <color name="primary_material_light_1">#720d0d</color>
 </resources>

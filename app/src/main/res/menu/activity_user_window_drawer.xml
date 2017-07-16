@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_category"
             android:icon="@drawable/categoryblack"
-            android:title="Categories" />
+            android:title="Categories"
+            android:checked="true"
+            />
         <item
             android:id="@+id/nav_UserQuizzes"
             android:icon="@drawable/otherblack"

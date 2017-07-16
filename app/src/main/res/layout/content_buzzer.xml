@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.dell.quizbox.BuzzerActivity"
     tools:showIn="@layout/activity_buzzer">
@@ -11,7 +12,12 @@
     <ListView
         android:id="@+id/categories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:alwaysDrawnWithCache="true"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:divider="@color/material_lime_a700"
+        android:dividerHeight="5dp" />
 
 
     <ProgressBar

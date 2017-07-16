@@ -38,7 +38,7 @@ public class LeaderBoard extends Fragment {
     ArrayList<User> users=new ArrayList<>();
     ArrayList<String> name1=new ArrayList<>();
     ArrayList<Integer>  score=new ArrayList<>();
-
+    ArrayList<Integer> icon=new ArrayList<>();
     ListView category;
     private ProgressBar loader;
 
@@ -97,6 +97,7 @@ public class LeaderBoard extends Fragment {
                     name1.add(user.getUsername());
                     //Log.i("Hello","Hii");
                     score.add(user.getScore());
+                    icon.add(R.drawable.user);
                     //Log.i("Hello","Hii");
                     loader=(ProgressBar)getActivity().findViewById(R.id.progressBar1);
                     loader.setVisibility(View.GONE);
@@ -107,8 +108,6 @@ public class LeaderBoard extends Fragment {
 
                 }catch (Exception e)
                 {
-
-                    System.out.print(e);
                     e.printStackTrace();
                 }
 
@@ -150,7 +149,7 @@ public class LeaderBoard extends Fragment {
 
 
 
-        adapter=new CustomListAdapter1(getActivity(),name1,score);
+        adapter=new CustomListAdapter1(getActivity(),name1,score,icon);
 
 
         category=(ListView)getView().findViewById(R.id.categoriesList);

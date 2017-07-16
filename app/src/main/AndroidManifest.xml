@@ -8,17 +8,23 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/quizbox_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/quizbox_icon"
         android:supportsRtl="true"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait"
         android:theme="@style/GreenTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
             tools:replace="android:value" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/GreenTheme.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,36 +34,35 @@
         <activity
             android:name=".SInglePlayerActivity"
             android:label="@string/title_activity_single_player"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/GreenTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dell.quizbox.MainActivity" />
-        </activity>
-        <activity
-            android:name=".Multiplayer"
-            android:label="@string/title_activity_multiplayer"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/GreenTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dell.quizbox.MainActivity" />
+                android:value="com.example.dell.quizbox.Welcome" />
         </activity>
         <activity
             android:name=".UserWindow"
             android:label="@string/title_activity_user_window"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/GreenTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dell.quizbox.MainActivity" />
+                android:value="com.example.dell.quizbox.Welcome" />
         </activity>
         <activity
             android:name=".mcq"
             android:label="@string/title_activity_mcq"
+            android:launchMode="singleTask"
             android:parentActivityName=".SInglePlayerActivity"
             android:theme="@style/GreenTheme.NoActionBar"
-            android:launchMode="singleTask" >
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.SInglePlayerActivity" />
@@ -65,9 +70,11 @@
         <activity
             android:name=".MCQ2"
             android:label="@string/title_activity_mcq2"
+            android:launchMode="singleTask"
             android:parentActivityName=".UserWindow"
             android:theme="@style/GreenTheme.NoActionBar"
-            android:launchMode="singleTask">
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -75,9 +82,11 @@
         <activity
             android:name=".MCQ3"
             android:label="@string/title_activity_mcq3"
+            android:launchMode="singleTask"
             android:parentActivityName=".UserWindow"
             android:theme="@style/GreenTheme.NoActionBar"
-            android:launchMode="singleTask">
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.UserWindow" />
@@ -91,21 +100,38 @@
         <activity
             android:name=".BuzzerActivity"
             android:label="@string/title_activity_buzzer"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/GreenTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/GreenTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dell.quizbox.MainActivity" />
+                android:value="com.example.dell.quizbox.Welcome" />
         </activity>
         <activity
             android:name=".BuzzerMcq"
             android:label="@string/title_activity_buzzer_mcq"
+            android:launchMode="singleTask"
             android:parentActivityName=".BuzzerActivity"
-            android:theme="@style/GreenTheme.NoActionBar"
-            android:launchMode="singleTask">
+            android:theme="@style/GreenTheme.NoTitleBar.Fullscreen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dell.quizbox.BuzzerActivity" />
+        </activity>
+
+        <activity android:name=".Welcome"
+            android:label="QuizBox"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTask"
+
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dell.quizbox.MainActivity" />
         </activity>
     </application>
 

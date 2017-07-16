@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -47,6 +49,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -81,9 +84,21 @@ public class UserWindow extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_window);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
+
+
+
+
+
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -92,17 +107,23 @@ public class UserWindow extends AppCompatActivity implements
         users=myDatabase.getReference().child("Users");
         usersId=myDatabase.getReference().child("UserId");
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
+
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         name1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.username1);
         id1=(TextView)navigationView.getHeaderView(0).findViewById(R.id.id1);
+
+
+
+
 
         mAuthStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -153,6 +174,12 @@ public class UserWindow extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.userwindow, new Categories())
+                .commit();
+
     }
 
     @Override
@@ -297,7 +324,7 @@ public class UserWindow extends AppCompatActivity implements
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                        .setIsSmartLockEnabled(false)
                         .setTheme(R.style.GreenTheme)
                         .setAvailableProviders(
                                 Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
