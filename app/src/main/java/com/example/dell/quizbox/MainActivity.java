@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        imageView.animate().alpha(1.0f).setDuration(500);
+    }
 
     public void next(View view)
     {

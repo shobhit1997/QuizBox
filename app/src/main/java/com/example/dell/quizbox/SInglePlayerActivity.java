@@ -1,10 +1,13 @@
 package com.example.dell.quizbox;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -210,7 +213,7 @@ public class SInglePlayerActivity extends AppCompatActivity {
             //Log.i("Content",result);
         }
     }
- /*   @Override
+  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -219,22 +222,39 @@ public class SInglePlayerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.add) {
 
-            Intent i=new Intent(getApplicationContext(),Main2Activity.class);
-            i.putExtra("policyId",0);
-            startActivity(i);
+        if (id == R.id.score) {
+            String string="";
+            SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.dell.quizbox", MODE_PRIVATE);
+            for(int x=0;x<name.size();x++) {
+
+                int score = sharedPreferences.getInt(name.get(x), 0);
+                string+=name.get(x)+"\t:\t"+score+"\n";
+            }
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("High Scores")
+                    .setMessage(string)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+
+                    .setIcon(R.drawable.leaderblack);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
 
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
 }

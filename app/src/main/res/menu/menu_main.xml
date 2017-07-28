@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.dell.quizbox.Multiplayer">
     <item
-        android:id="@+id/add"
+        android:id="@+id/score"
 
-        android:title="Sign Out"
+        android:title="High Scores"
         app:showAsAction="always" />
 </menu>

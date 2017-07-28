@@ -11,6 +11,13 @@
     tools:context="com.example.dell.quizbox.BuzzerMcq"
     tools:showIn="@layout/activity_buzzer_mcq">
 
+    <ImageView
+        android:id="@+id/congrats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:srcCompat="@drawable/congratulation" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
@@ -183,7 +190,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="10000"
-        android:progress="10000" />
+        android:progress="10000"
+        android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"

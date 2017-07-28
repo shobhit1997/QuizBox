@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -178,19 +179,23 @@ public class BuzzerMcq extends AppCompatActivity {
 
         RelativeLayout rl1=(RelativeLayout)findViewById(R.id.relativeLayout1);
         RelativeLayout rl2=(RelativeLayout)findViewById(R.id.relativeLayout2);
-        RelativeLayout rl3=(RelativeLayout)findViewById(R.id.relativeLayout3);
-        RelativeLayout rl4=(RelativeLayout)findViewById(R.id.relativeLayout4);
-
         rl1.setVisibility(View.GONE);
         rl2.setVisibility(View.GONE);
         timerbar.setVisibility(View.GONE);
+        RelativeLayout rl3=(RelativeLayout)findViewById(R.id.relativeLayout3);
+        RelativeLayout rl4=(RelativeLayout)findViewById(R.id.relativeLayout4);
+        ImageView congrats=(ImageView)findViewById(R.id.congrats);
+
         if(score[0]>score[1])
         {
-            rl3.setVisibility(View.VISIBLE);
+            //rl3.setVisibility(View.VISIBLE);
+            congrats.setVisibility(View.VISIBLE);
+            congrats.setRotation(180.0f);
         }
         else if(score[1]>score[0])
         {
-            rl4.setVisibility(View.VISIBLE);
+            //rl4.setVisibility(View.VISIBLE);
+            congrats.setVisibility(View.VISIBLE);
         }
         else
         {

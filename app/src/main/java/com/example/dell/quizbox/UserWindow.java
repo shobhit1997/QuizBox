@@ -202,12 +202,11 @@ public class UserWindow extends AppCompatActivity implements
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_window, menu);
-       /* MenuItem item = menu.findItem(R.id.nav_share);
-        mShareActionProvider = (ShareActionProvider) item.getActionProvider();*/
+
         return true;
     }
 
@@ -224,7 +223,7 @@ public class UserWindow extends AppCompatActivity implements
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

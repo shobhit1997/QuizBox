@@ -10,8 +10,8 @@
         android:alwaysDrawnWithCache="false"
         android:animateLayoutChanges="true"
         android:animationCache="true"
-        android:divider="@color/material_lime_a700"
-        android:dividerHeight="5dp"
+        android:divider="@color/cardview_dark_background"
+        android:dividerHeight="2dp"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:padding="16dp" />

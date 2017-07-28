@@ -1,6 +1,7 @@
 package com.example.dell.quizbox;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -140,7 +141,15 @@ public class mcq extends AppCompatActivity {
         {
             imv.setImageResource(R.drawable.sad);
         }*/
-
+        SharedPreferences sharedPreferences=this.getSharedPreferences("com.example.dell.quizbox",MODE_PRIVATE);
+        int score=sharedPreferences.getInt(category,0);
+        Log.i(category+"",score+"");
+        if(score<Score)
+        {
+            sharedPreferences.edit().putInt(category,Score).apply();
+        }
+        score=sharedPreferences.getInt(category,0);
+        Log.i(category+"",score+"");
         LinearLayout lo=(LinearLayout)findViewById(R.id.relativeLayout2);
         lo.setVisibility(View.GONE);
         TextView sco=(TextView)findViewById(R.id.score);
@@ -155,6 +164,7 @@ public class mcq extends AppCompatActivity {
         wrngsco.setText(String.valueOf(10-Score));
         shareButton.setVisibility(View.VISIBLE);
         shareButton.setEnabled(true);
+
         Log.i("Score",Score+"");
 
 
