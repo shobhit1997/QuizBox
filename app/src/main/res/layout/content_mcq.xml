@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -36,17 +37,19 @@
             android:text="Category"
 
             android:textAllCaps="true"
+            android:textColor="@color/cardview_light_background"
             android:textSize="40sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="119dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="Question:"
+            android:background="@drawable/quesbox"
 
+            android:padding="5dp"
+            android:text="Question:"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="18sp"
@@ -67,7 +70,8 @@
                 android:background="@drawable/option_1"
                 android:onClick="Check"
                 android:text="Option 1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/Option2"
@@ -76,7 +80,8 @@
                 android:background="@drawable/option_2"
                 android:onClick="Check"
                 android:text="Option 2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/Option3"
@@ -85,7 +90,8 @@
                 android:background="@drawable/option_3"
                 android:onClick="Check"
                 android:text="Option 3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/Option4"
@@ -94,7 +100,8 @@
                 android:background="@drawable/option_4"
                 android:onClick="Check"
                 android:text="Option 4"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/cardview_light_background" />
 
         </RadioGroup>
 
@@ -129,7 +136,7 @@
                 android:layout_toStartOf="@+id/button"
                 android:text="SKIP THIS"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/cardview_dark_background"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="34sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -196,7 +203,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/shareButton"
         android:layout_centerHorizontal="true"
+        android:onClick="home"
         android:visibility="gone"
-        app:srcCompat="@drawable/go_home_youre_drunk" />
+        app:srcCompat="@drawable/gotohome" />
 
 </RelativeLayout>

@@ -1,10 +1,15 @@
 package com.example.dell.quizbox;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,7 +41,7 @@ public class BuzzerActivity extends AppCompatActivity {
     static ArrayList<String[]> options=new ArrayList<>();
     String selecteditem;
     private ProgressBar loader;
-
+    AlertDialog.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,27 +93,57 @@ public class BuzzerActivity extends AppCompatActivity {
         final ListView category=(ListView)findViewById(R.id.categories);
         category.setAdapter(adapter);
 
+        builder = new AlertDialog.Builder(this);
+
         category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                selecteditem= name.get(position);
-                questions.clear();
-                answers.clear();
-                options.clear();
 
 
-                loader.setVisibility(View.VISIBLE);
-                category.setVisibility(View.GONE);
-                BuzzerActivity.DownloadTask downloadTask=new BuzzerActivity.DownloadTask();
-                downloadTask.execute(apis.get(position));
+                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(isConnected)
+                {
+                    //we are connected to a network
+                    selecteditem= name.get(position);
+                    questions.clear();
+                    answers.clear();
+                    options.clear();
+
+
+                    loader.setVisibility(View.VISIBLE);
+                    category.setVisibility(View.GONE);
+                    BuzzerActivity.DownloadTask downloadTask=new BuzzerActivity.DownloadTask();
+                    downloadTask.execute(apis.get(position));
+                    Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+                else
+                {
 
 
 
 
-                Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+                    builder.setTitle("Alert")
+                            .setMessage("NO INTERNET CONNECTION")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }
+
 
             }
         });

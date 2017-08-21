@@ -5,6 +5,7 @@
     android:id="@+id/Buzz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -116,19 +117,22 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/question1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/radiogroup1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_weight="1"
+            android:background="@drawable/quesbox"
+
+            android:padding="5dp"
             android:text="Question:"
             android:textAlignment="center"
-
             android:textAllCaps="true"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -150,6 +154,7 @@
                 android:onClick="Check"
                 android:text="Option 1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -159,6 +164,7 @@
                 android:background="@drawable/option_2"
                 android:onClick="Check"
                 android:text="Option 2"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -168,6 +174,7 @@
                 android:background="@drawable/option_3"
                 android:onClick="Check"
                 android:text="Option 3"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -177,6 +184,7 @@
                 android:background="@drawable/option_4"
                 android:onClick="Check"
                 android:text="Option 4"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
 
@@ -208,11 +216,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
+            android:layout_above="@+id/radiogroup2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-
-            android:layout_marginBottom="16dp"
+            android:background="@drawable/quesbox"
+            android:padding="5dp"
             android:text="Question:"
             android:textAlignment="center"
             android:textAllCaps="true"
@@ -234,7 +243,8 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <RadioGroup
             android:id="@+id/radiogroup2"
@@ -251,6 +261,7 @@
                 android:background="@drawable/option_1"
                 android:onClick="Check"
                 android:text="Option 1"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -260,6 +271,7 @@
                 android:background="@drawable/option_2"
                 android:onClick="Check"
                 android:text="Option 2"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -269,6 +281,7 @@
                 android:background="@drawable/option_3"
                 android:onClick="Check"
                 android:text="Option 3"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -278,6 +291,7 @@
                 android:background="@drawable/option_4"
                 android:onClick="Check"
                 android:text="Option 4"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="20sp" />
 
 

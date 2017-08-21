@@ -2,9 +2,13 @@ package com.example.dell.quizbox;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +59,7 @@ public class Categories extends Fragment {
     private ProgressBar loader;
     String selecteditem;
 
-
+    AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -115,25 +119,60 @@ public class Categories extends Fragment {
         category.setVisibility(View.VISIBLE);
         category.setAdapter(adapter);
 
+        builder = new AlertDialog.Builder(getActivity());
+
         category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                selecteditem= name1.get(position);
-                questions.clear();
-                answers.clear();
-                options.clear();
-                category.setVisibility(View.GONE);
-                loader.setVisibility(View.VISIBLE);
-                DownloadTask downloadTask=new DownloadTask();
-                downloadTask.execute(apis.get(position));
+
+
+                ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(isConnected)
+                {
+                    //we are connected to a network
+                    selecteditem= name1.get(position);
+                    questions.clear();
+                    answers.clear();
+                    options.clear();
+                    category.setVisibility(View.GONE);
+                    loader.setVisibility(View.VISIBLE);
+                    DownloadTask downloadTask=new DownloadTask();
+                    downloadTask.execute(apis.get(position));
 
 
 
 
-                Toast.makeText(getActivity().getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+                else
+                {
+
+
+
+
+                    builder.setTitle("Alert")
+                            .setMessage("NO INTERNET CONNECTION")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }
+
+
 
             }
         });

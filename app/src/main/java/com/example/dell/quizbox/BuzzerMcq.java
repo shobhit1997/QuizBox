@@ -1,6 +1,7 @@
 package com.example.dell.quizbox;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,6 +44,16 @@ public class BuzzerMcq extends AppCompatActivity {
     int n=0,height,width ,flag=1,player=0;
     int score[]=new int[2];
 
+
+    RadioButton rb11;
+    RadioButton rb12;
+    RadioButton rb13;
+    RadioButton rb14;
+    RadioButton rb21;
+    RadioButton rb22;
+    RadioButton rb23;
+    RadioButton rb24;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +69,17 @@ public class BuzzerMcq extends AppCompatActivity {
         Intent i=getIntent();
         category=i.getStringExtra("category");
         timerbar=(ProgressBar)findViewById(R.id.timer);
+        timerbar.setMax(20000);
 
+        rb11 = (RadioButton) findViewById(R.id.Option11);
+        rb12 = (RadioButton) findViewById(R.id.Option12);
+        rb13 = (RadioButton) findViewById(R.id.Option13);
+        rb14 = (RadioButton) findViewById(R.id.Option14);
+
+        rb21 = (RadioButton) findViewById(R.id.Option21);
+        rb22 = (RadioButton) findViewById(R.id.Option22);
+        rb23 = (RadioButton) findViewById(R.id.Option23);
+        rb24 = (RadioButton) findViewById(R.id.Option24);
 
 
 
@@ -127,7 +149,16 @@ public class BuzzerMcq extends AppCompatActivity {
     public void setQuestion(int n)
     {   if(n<10) {
 
-        timerbar.setProgress(10000);
+        rb11.setEnabled(true);
+        rb12.setEnabled(true);
+        rb13.setEnabled(true);
+        rb14.setEnabled(true);
+        rb21.setEnabled(true);
+        rb22.setEnabled(true);
+        rb23.setEnabled(true);
+        rb24.setEnabled(true);
+
+        timerbar.setProgress(20000);
 
         TextView ques1= (TextView) findViewById(R.id.question1);
         TextView ques2= (TextView) findViewById(R.id.question2);
@@ -150,7 +181,7 @@ public class BuzzerMcq extends AppCompatActivity {
         O22.setText(options.get(n)[1]);
         O23.setText(options.get(n)[2]);
         O24.setText(options.get(n)[3]);
-        timer=new CountDownTimer(10 * 1000+100, 1) {
+        timer=new CountDownTimer(20 * 1000+100, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
                // Log.i("Time Left",millisUntilFinished+"");
@@ -199,12 +230,14 @@ public class BuzzerMcq extends AppCompatActivity {
         }
         else
         {
-            rl3.setVisibility(View.VISIBLE);
+           /* rl3.setVisibility(View.VISIBLE);
             rl4.setVisibility(View.VISIBLE);
             TextView tv1=(TextView)findViewById(R.id.tv1);
             TextView tv2=(TextView)findViewById(R.id.tv2);
             tv1.setText("Draw");
-            tv2.setText("Draw");
+            tv2.setText("Draw");*/
+           congrats.setImageResource(R.drawable.congratulation_draw);
+            congrats.setVisibility(View.VISIBLE);
         }
 
     }
@@ -212,7 +245,16 @@ public class BuzzerMcq extends AppCompatActivity {
     public void Check(View view)
     {
         timer.cancel();
-        RadioButton rb=(RadioButton)findViewById(view.getId());
+        rb11.setEnabled(false);
+        rb12.setEnabled(false);
+        rb13.setEnabled(false);
+        rb14.setEnabled(false);
+        rb21.setEnabled(false);
+        rb22.setEnabled(false);
+        rb23.setEnabled(false);
+        rb24.setEnabled(false);
+
+        final RadioButton rb=(RadioButton)findViewById(view.getId());
         int id=view.getId();
         if(id==R.id.Option11||id==R.id.Option12||id==R.id.Option13||id==R.id.Option14)
         {
@@ -229,15 +271,54 @@ public class BuzzerMcq extends AppCompatActivity {
         Score[1]=(TextView)findViewById(R.id.score2);
         Log.i("Ans",answer);
         Log.i("Selected",Ans);
+        final Drawable d = rb.getBackground();
 
         if(Ans.equals(answer))
         {
             score[player-1]++;
             Score[player-1].setText(String.valueOf(score[player-1]));
-        }
-        rb.setChecked(false);
+            new CountDownTimer(2 * 1000 + 100, 500) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    rb.setBackgroundColor(getResources().getColor(R.color.material_lime_a700));
 
-        setQuestion(++questionNo);
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    rb.setBackground(d);
+                    rb.setChecked(false);
+
+                    setQuestion(++questionNo);
+
+
+                }
+            }.start();
+        }
+        else
+        {
+            new CountDownTimer(2 * 1000 + 100, 500) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    rb.setBackgroundColor(getResources().getColor(R.color.red));
+
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    rb.setBackground(d);
+                    rb.setChecked(false);
+
+                    setQuestion(++questionNo);
+
+
+                }
+            }.start();
+        }
 
 
     }

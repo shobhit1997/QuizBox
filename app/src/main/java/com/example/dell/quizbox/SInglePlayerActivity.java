@@ -1,8 +1,11 @@
 package com.example.dell.quizbox;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +46,7 @@ public class SInglePlayerActivity extends AppCompatActivity {
     static ArrayList<String> questions=new ArrayList<>();
     static ArrayList<String[]> options=new ArrayList<>();
     String selecteditem;
+    AlertDialog.Builder builder;
     private ProgressBar loader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class SInglePlayerActivity extends AppCompatActivity {
 
         final ListView category=(ListView)findViewById(R.id.categories);
         category.setAdapter(adapter);
+         builder = new AlertDialog.Builder(this);
 
         category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -100,21 +105,52 @@ public class SInglePlayerActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                selecteditem= name.get(position);
-                questions.clear();
-                answers.clear();
-                options.clear();
+
+                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(isConnected)
+                {
+                    //we are connected to a network
+                    selecteditem= name.get(position);
+                    questions.clear();
+                    answers.clear();
+                    options.clear();
 
 
-                loader.setVisibility(View.VISIBLE);
-                category.setVisibility(View.GONE);
-                DownloadTask downloadTask=new DownloadTask();
-                downloadTask.execute(apis.get(position));
+                    loader.setVisibility(View.VISIBLE);
+                    category.setVisibility(View.GONE);
+
+                    DownloadTask downloadTask=new DownloadTask();
+                    downloadTask.execute(apis.get(position));
+                    Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+
+
+                }
+                else
+                {
 
 
 
 
-                Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
+                    builder.setTitle("Alert")
+                            .setMessage("NO INTERNET CONNECTION")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                    .setIcon(android.R.drawable.ic_dialog_alert);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }
+
+
+
+
+
 
             }
         });
@@ -232,11 +268,11 @@ public class SInglePlayerActivity extends AppCompatActivity {
             for(int x=0;x<name.size();x++) {
 
                 int score = sharedPreferences.getInt(name.get(x), 0);
-                string+=name.get(x)+"\t:\t"+score+"\n";
+                string+=name.get(x)+"\t\t:\t"+score+"\n";
             }
 
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder = new AlertDialog.Builder(this);
 
             builder.setTitle("High Scores")
                     .setMessage(string)

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,6 +40,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -264,7 +266,7 @@ public class UserWindow extends AppCompatActivity implements
         } else if (id == R.id.nav_share) {
 
             SharedPreferences sharedPreferences=this.getSharedPreferences("com.example.dell.quizbox",MODE_PRIVATE);
-            int score=sharedPreferences.getInt(user.getUserId(),0);
+            int score=sharedPreferences.getInt(user.getUserid(),0);
            Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, "High Score:"+score);
@@ -291,6 +293,7 @@ public class UserWindow extends AppCompatActivity implements
     {
         Log.i("UserName",username);
         Log.i("Email",email);
+        Log.i("id",uid);
         if(username!=null)
             USER_NAME=username;
         if(email!=null)
@@ -306,11 +309,28 @@ public class UserWindow extends AppCompatActivity implements
             id1.setText(EMAIL_ID);
 
         user=new User(uid,username,0);
-        if(users.child(uid)==null) {
-            users.child(uid).setValue(user);
-            SharedPreferences sharedPreferences=this.getSharedPreferences("com.example.dell.quizbox",MODE_PRIVATE);
-            sharedPreferences.edit().putInt(uid,0).apply();
-        }
+        Log.i("id",users.child(uid).child("userId")+"");
+
+
+        users.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Log.i("OLD User :",User_Id);
+                }
+                else {
+                    Log.i("New User :",User_Id);
+                    users.child(User_Id).setValue(user);
+
+                    SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("com.example.dell.quizbox",MODE_PRIVATE);
+                    sharedPreferences.edit().putInt(User_Id,0).apply();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError firebaseError) { }
+        });
+
 
 
 

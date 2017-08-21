@@ -19,157 +19,161 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/createquiz" />
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="1"
-        android:columnCount="2">
+    
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="0"
-            android:layout_rowWeight="1"
-            android:text="Quiz Name" />
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_weight="1"
+
+                android:text="Quiz Name" />
 
         <EditText
             android:id="@+id/quiz_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
             android:layout_gravity="fill_horizontal"
-            android:layout_row="0"
-            android:layout_rowWeight="1"
             android:ems="10"
             android:hint="Name" />
-
+        </LinearLayout>
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="horizontal"
+    android:layout_weight="1">
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
+            
             android:layout_gravity="fill_horizontal"
-            android:layout_row="1"
-            android:layout_rowWeight="1"
+            android:layout_weight="1"
             android:text="Question" />
 
         <EditText
             android:id="@+id/ques"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            
             android:layout_gravity="fill_horizontal"
-            android:layout_row="1"
-            android:layout_rowWeight="1"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="Question" />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="2"
-            android:layout_rowWeight="1"
-            android:text="Answer" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="fill_horizontal"
+                android:layout_weight="1"
+                android:text="Answer" />
 
         <EditText
             android:id="@+id/ans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            
             android:layout_gravity="fill_horizontal"
-            android:layout_row="2"
-            android:layout_rowWeight="1"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="Option 1" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="3"
-            android:layout_rowWeight="1"
-            android:text="Incorrect 1" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_weight="1"
+                android:text="Incorrect 1" />
 
         <EditText
             android:id="@+id/wrngans1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            
             android:layout_gravity="fill_horizontal"
-            android:layout_row="3"
-            android:layout_rowWeight="1"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="Option 2" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="4"
-            android:layout_rowWeight="1"
-            android:text="Incorrect 2" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_weight="1"
+
+                android:text="Incorrect 2" />
 
         <EditText
             android:id="@+id/wrngans2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
             android:layout_gravity="fill_horizontal"
-            android:layout_row="4"
-            android:layout_rowWeight="1"
+            
             android:ems="10"
             android:hint="Option 3" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="5"
-            android:layout_rowWeight="1"
-            android:text="Incorrect 3" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_weight="1"
+
+                android:text="Incorrect 3" />
 
         <EditText
             android:id="@+id/wrngans3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
             android:layout_gravity="fill_horizontal"
-            android:layout_row="5"
-            android:layout_rowWeight="1"
+            
             android:ems="10"
             android:hint="Option 4" />
+        </LinearLayout>
 
-
-    </GridLayout>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

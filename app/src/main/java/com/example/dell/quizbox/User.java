@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String userId;
-    private String userName;
+    private String userid;
+    private String username;
     private int score;
 
 
     public User() {
     }
 
-    public User(String userId,String userName,int score) {
-        this.userName = userName;
-        this.userId = userId;
+    public User(String userid,String username,int score) {
+        this.username = username;
+        this.userid = userid;
         this.score=score;
 
 
@@ -27,23 +27,23 @@ public class User {
 
 
 
-    public void setUsername(String userName)
+    public void setUsername(String username)
     {
-        this.userName=userName;
+        this.username=username;
     }
-    public void setUserId(String userId){
-        this.userId=userId;
+    public void setUserid(String userid){
+        this.userid=userid;
     }
     public void setScore(int score){
         this.score=score;
     }
     public String getUsername()
     {
-        return userName;
+        return username;
     }
-    public String getUserId()
+    public String getUserid()
     {
-        return userId;
+        return userid;
     }
     public int getScore()
     {

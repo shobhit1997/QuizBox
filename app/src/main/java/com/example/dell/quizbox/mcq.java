@@ -2,6 +2,7 @@ package com.example.dell.quizbox;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,12 @@ public class mcq extends AppCompatActivity {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     CountDownTimer timer;
+boolean flag;
+    RadioGroup radioGroup;
+    RadioButton rb1;
+    RadioButton rb2;
+    RadioButton rb3;
+    RadioButton rb4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +62,11 @@ public class mcq extends AppCompatActivity {
         category=i.getStringExtra("category");
        timerbar=(ProgressBar)findViewById(R.id.timer);
         shareButton = (ShareButton)findViewById(R.id.shareButton);
-
+        radioGroup=(RadioGroup)findViewById(R.id.radiogroup);
+         rb1 = (RadioButton) findViewById(R.id.Option1);
+        rb2 = (RadioButton) findViewById(R.id.Option2);
+        rb3 = (RadioButton) findViewById(R.id.Option3);
+        rb4 = (RadioButton) findViewById(R.id.Option4);
         TextView cat=(TextView)findViewById(R.id.cat);
         cat.setText(category);
 
@@ -97,7 +109,12 @@ public class mcq extends AppCompatActivity {
 
     public void setQuestion(int n)
     {   if(n<10) {
-
+        flag=true;
+        radioGroup.setEnabled(true);
+        rb1.setEnabled(true);
+        rb2.setEnabled(true);
+        rb3.setEnabled(true);
+        rb4.setEnabled(true);
         timerbar.setProgress(10000);
 
         TextView ques = (TextView) findViewById(R.id.question);
@@ -173,18 +190,63 @@ public class mcq extends AppCompatActivity {
     }
     public void Check(View view)
     {
-        timer.cancel();
-        RadioButton rb=(RadioButton)findViewById(view.getId());
+        if(flag) {
+            flag=false;
+            rb1.setEnabled(false);
+            rb2.setEnabled(false);
+            rb3.setEnabled(false);
+            rb4.setEnabled(false);
+            timer.cancel();
+           final RadioButton rb = (RadioButton) findViewById(view.getId());
 
-        String Ans=rb.getText().toString();
+            final Drawable d = rb.getBackground();
+            String Ans = rb.getText().toString();
 
-        if(Ans.equals(answer))
-        {
-            Score++;
+            if (Ans.equals(answer)) {
+                Score++;
+                new CountDownTimer(2 * 1000 + 100, 500) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        rb.setBackgroundColor(getResources().getColor(R.color.material_lime_a700));
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                        rb.setBackground(d);
+                        rb.setChecked(false);
+
+                        setQuestion(++questionNo);
+
+
+                    }
+                }.start();
+            } else {
+                new CountDownTimer(2 * 1000 + 100, 500) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        rb.setBackgroundColor(getResources().getColor(R.color.red));
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                        rb.setBackground(d);
+                        rb.setChecked(false);
+
+                        setQuestion(++questionNo);
+
+
+                    }
+                }.start();
+            }
+
+
         }
-        rb.setChecked(false);
-
-                setQuestion(++questionNo);
 
 
     }
@@ -225,6 +287,10 @@ public class mcq extends AppCompatActivity {
 
 
 
+    }
+    public void home(View view)
+    {
+        finish();
     }
 
 }
